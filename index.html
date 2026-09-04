@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mariana Lemos - Arquitetura Narrativa | Curadoria de Conhecimento | Reputação e Liderança de Pensamento</title>
+<meta name="description" content="Mariana Lemos is a narrative architect and knowledge curator. Explore her services, featured work, awards and latest writing.">
+<link rel="icon" type="image/svg+xml" href="logo_amarelo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#cd411d;
+  --pink:#FC99C2;
+  --black:#0A0A0A;
+  --gray-900:#151514;
+  --gray-700:#6D6D6D;
+  --gray-500:#949494;
+  --gray-300:#C4C4C4;
+  --gray-100:#F6F6F6;
+  --white:#FFFFFF;
+  --font:'Montserrat', sans-serif;
+  --container:1180px;
+  --radius-lg:28px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--black);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;}
+h1,h2,h3,p{margin:0;}
+ul{margin:0;padding:0;list-style:none;}
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin:0 auto;
+  padding:0 24px;
+}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+.skip-link{
+  position:fixed;top:-100px;left:16px;z-index:1000;
+  background:var(--black);color:var(--white);padding:12px 20px;border-radius:8px;
+  transition:top .2s ease;
+}
+.skip-link:focus{top:16px;}
+
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;}
+
+/* ---------- Buttons ---------- */
+.icon-arrow{width:1em;height:1em;display:inline-block;}
+.btn{
+  display:inline-flex;align-items:center;gap:14px;
+  font-weight:700;font-size:16px;line-height:1.3;
+  cursor:pointer;border:none;background:none;padding:0;color:inherit;
+}
+.btn .bump{
+  position:relative;width:42px;height:42px;flex:none;
+}
+.btn .bump .disc{
+  position:absolute;inset:0;border-radius:50%;background:var(--pink);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .25s ease, background-color .25s ease;
+}
+.btn .bump .disc svg{width:16px;height:16px;stroke:var(--black);}
+.btn:hover .bump .disc{transform:scale(1.08) rotate(20deg);background:var(--orange);}
+.btn:hover .bump .disc svg{stroke:var(--white);}
+.btn.on-dark{color:var(--white);}
+.btn.on-light{color:var(--black);}
+
+.pill-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--black);color:var(--white);
+  padding:14px 26px 14px 28px;border-radius:999px;
+  font-weight:700;font-size:15px;border:none;cursor:pointer;
+  transition:background-color .2s ease, transform .2s ease;
+}
+.pill-btn:hover{background:var(--orange);transform:translateY(-2px);}
+.pill-btn .dot{
+  width:30px;height:30px;border-radius:50%;background:var(--pink);
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.pill-btn .dot svg{width:13px;height:13px;stroke:var(--black);}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:20px 0;
+  transition:background-color .3s ease, box-shadow .3s ease, padding .3s ease;
+}
+.site-header .container{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.site-header.is-scrolled{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 rgba(0,0,0,0.06);
+  padding:14px 0;
+}
+.logo{
+  display:inline-flex;align-items:center;width:44px;color:var(--white);
+  transition:color .3s ease;
+}
+.logo img{display:block;width:100%;height:auto;}
+.site-header.is-scrolled .logo{color:var(--black);}
+
+.nav-links{
+  display:flex;align-items:center;gap:clamp(20px,3vw,48px);
+}
+.nav-links a{
+  font-size:15px;font-weight:700;color:var(--white);
+  position:relative;padding:6px 2px;transition:color .3s ease;
+}
+.site-header.is-scrolled .nav-links a{color:var(--black);}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;height:2px;width:0;
+  background:currentColor;transition:width .25s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.is-active::after{width:100%;}
+
+.header-actions{display:flex;align-items:center;gap:18px;}
+.header-actions .pill-btn{display:none;}
+@media (min-width:900px){
+  .header-actions .pill-btn{display:inline-flex;}
+}
+
+.nav-toggle{
+  display:flex;flex-direction:column;justify-content:center;gap:5px;
+  width:42px;height:42px;border:none;background:rgba(255,255,255,0.16);
+  border-radius:50%;cursor:pointer;flex:none;
+}
+.site-header.is-scrolled .nav-toggle{background:rgba(0,0,0,0.08);}
+.nav-toggle span{
+  width:16px;height:2px;background:var(--white);margin:0 auto;
+  transition:background-color .3s ease, transform .3s ease, opacity .3s ease;
+}
+.site-header.is-scrolled .nav-toggle span{background:var(--black);}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media (min-width:900px){.nav-toggle{display:none;}}
+@media (max-width:899px){.nav-links{display:none;}}
+
+.mobile-menu{
+  position:fixed;inset:0;z-index:190;background:var(--black);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;
+  padding:32px;transform:translateY(-100%);transition:transform .35s ease;
+}
+.mobile-menu.is-open{transform:translateY(0);}
+.mobile-menu a{color:var(--white);font-size:clamp(28px,8vw,44px);font-weight:700;}
+.mobile-menu .pill-btn{margin-top:12px;}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;background:#004aad;color:var(--white);
+  padding:150px 0 90px;overflow:hidden;
+  min-height:92vh;display:flex;align-items:center;
+}
+.hero-watermark{
+  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  font-size:clamp(9rem,32vw,34rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:2px rgba(255,255,255,0.5);
+  opacity:.1;white-space:nowrap;pointer-events:none;user-select:none;line-height:1;
+  letter-spacing:-0.02em;
+}
+.hero .container{
+  position:relative;z-index:2;
+  display:grid;gap:48px;align-items:center;
+  grid-template-columns:1fr;
+}
+@media (min-width:960px){
+  .hero .container{grid-template-columns:1.1fr 0.9fr;}
+}
+.hero-copy h1{
+  font-size:clamp(3rem,9vw,7.5rem);
+  line-height:0.95;font-weight:400;color:var(--pink);
+  margin-bottom:28px;
+}
+.hero-copy p{
+  font-size:clamp(1.05rem,2vw,1.5rem);
+  line-height:1.6;max-width:34ch;margin-bottom:44px;
+}
+.hero-visual{
+  position:relative;justify-self:center;width:100%;max-width:460px;
+}
+.blob{
+  position:relative;width:100%;aspect-ratio:5/6.5;
+  border-radius:45% 55% 40% 60% / 60% 45% 55% 40%;
+  overflow:hidden;background:linear-gradient(160deg,#3f1e59,#7c4f9d 55%,var(--pink));
+  box-shadow:0 30px 60px rgba(0,0,0,0.25);
+}
+.blob img{width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:0.85;}
+.blob::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(54,20,83,0.55),rgba(244,60,0,0) 60%);
+}
+/* ---------- Section shell ---------- */
+.section{padding:120px 0;}
+.section-head{
+  display:flex;align-items:flex-start;gap:28px;
+  padding-bottom:56px;margin-bottom:56px;border-bottom:0px solid rgba(10,10,10,0.12);
+}
+.section-head .spark{width:64px;height:64px;flex:none;margin-top:6px;}
+.section-head h2{
+  font-size:clamp(2.4rem,6vw,5.5rem);line-height:1.02;font-weight:500;
+}
+.section--dark .section-head{border-bottom-color:rgba(255,255,255,0.16);}
+.section--dark .section-head h2{color:var(--white);}
+
+/* ---------- Services ---------- */
+.services-list{border-top:1px solid rgba(10,10,10,0.12);}
+.service-row{
+  display:grid;grid-template-columns:1fr;gap:18px;
+  padding:40px 0;border-bottom:1px solid rgba(10,10,10,0.12);
+}
+@media (min-width:800px){
+  .service-row{grid-template-columns:1fr 2fr;align-items:center;gap:40px;}
+}
+.service-row .service-name{
+  display:flex;align-items:center;gap:22px;
+}
+.service-row .service-icon{
+  width:44px;height:44px;flex:none;border-radius:50%;
+  background:var(--gray-100);display:flex;align-items:center;justify-content:center;
+}
+.service-row .service-icon svg{width:20px;height:20px;stroke:var(--orange);}
+.service-row h3{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:500;}
+.service-row p{color:var(--gray-700);font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.65;max-width:56ch;}
+
+/* ---------- Work / gallery ---------- */
+.marquee{
+  white-space:nowrap;border-bottom:1px solid rgba(10,10,10,0.12);
+  padding-bottom:40px;margin-bottom:64px;
+}
+.section--dark .marquee{border-bottom-color:rgba(255,255,255,0.16);}
+.marquee-track{
+  display:inline-flex;gap:32px;animation:marquee 26s linear infinite;
+  font-size:clamp(2.2rem,6vw,5.5rem);font-weight:500;
+}
+.marquee-track span{opacity:1;}
+.marquee-track em{font-style:normal;color:var(--gray-500);margin:0 8px;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+.work-grid{
+  display:grid;grid-template-columns:1fr;gap:64px;
+}
+@media (min-width:760px){
+  .work-grid{grid-template-columns:1fr 1fr;column-gap:40px;row-gap:48px;}
+  .work-card:nth-child(2){margin-top:48px;}
+  .work-card:nth-child(4){margin-top:48px;}
+  .work-card:nth-child(6){margin-top:48px;}
+}
+.work-card{
+  cursor:pointer;border:none;background:none;padding:0;text-align:left;
+  display:flex;flex-direction:column;width:100%;
+}
+.work-card .frame{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;display:block;
+  aspect-ratio:4/5;background:var(--gray-300);width:100%;
+}
+.work-card .frame img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.work-card:hover .frame img{transform:scale(1.06);}
+.work-card .view-badge{
+  position:absolute;left:20px;top:20px;width:88px;height:88px;border-radius:50%;
+  background:rgba(10,10,10,0.55);color:var(--white);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:13px;font-weight:700;opacity:0;transform:scale(.8);
+  transition:opacity .25s ease, transform .25s ease;
+}
+.work-card:hover .view-badge,
+.work-card:focus-visible .view-badge{opacity:1;transform:scale(1);}
+.work-card .meta{
+  display:flex;justify-content:space-between;align-items:baseline;padding-top:22px;gap:16px;
+  width:100%;
+}
+.work-card h3{font-size:clamp(1.4rem,2.6vw,2.1rem);font-weight:500;display:block;}
+.work-card .tag{color:var(--gray-700);font-size:1.15rem;white-space:nowrap;display:block;}
+
+/* ---------- Awwards ---------- */
+.logo-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:48px 32px;align-items:center;
+}
+@media (min-width:700px){.logo-grid{grid-template-columns:repeat(3,1fr);}}
+.logo-grid .logo-item{
+  display:flex;align-items:center;justify-content:center;
+  filter:grayscale(1);opacity:0.6;transition:opacity .25s ease, filter .25s ease;
+}
+.logo-grid .logo-item:hover{filter:grayscale(0);opacity:1;}
+.logo-grid .logo-item svg{width:100%;height:auto;max-height:52px;}
+.logo-grid{display:none;}
+.client-grid{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:56px 48px;padding:0;}
+.client-grid .client-name{display:flex;align-items:center;justify-content:center;width:180px;height:64px;}
+.client-grid .client-name img{display:block;width:180px;height:58px;object-fit:contain;filter:grayscale(1);opacity:.72;transition:filter .25s ease,opacity .25s ease,transform .25s ease;}
+.client-grid .client-name:hover img{filter:grayscale(0);opacity:1;transform:translateY(-2px);}
+@media (max-width:699px){.client-grid{justify-content:flex-start;gap:40px 28px;}.client-grid .client-name{width:140px;height:54px;}.client-grid .client-name img{width:140px;height:48px;}}
+
+/* ---------- Testimonial ---------- */
+.testimonial{background:var(--gray-900);color:var(--white);position:relative;overflow:hidden;}
+.testimonial .container{
+  display:grid;grid-template-columns:1fr;align-items:center;position:relative;z-index:2;
+}
+.testimonial-slide{display:none;}
+.testimonial-slide.is-active{display:block;animation:testimonial-fade .35s ease;}
+@keyframes testimonial-fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.testimonial-controls{display:flex;align-items:center;gap:18px;margin-top:34px;}
+.testimonial-arrow{width:42px;height:42px;border:1px solid rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;background:none;color:var(--white);cursor:pointer;transition:background-color .2s ease,border-color .2s ease,transform .2s ease;}
+.testimonial-arrow:hover{background:var(--orange);border-color:var(--orange);transform:translateY(-2px);}
+.testimonial-arrow svg{width:17px;height:17px;}
+.testimonial-dots{display:flex;align-items:center;gap:8px;margin-left:4px;}
+.testimonial-dot{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:var(--gray-500);cursor:pointer;}
+.testimonial-dot.is-active{background:var(--pink);transform:scale(1.35);}
+.testimonial-copy .quote-mark{
+  display:block;width:82px;height:82px;margin-bottom:32px;object-fit:contain;
+}
+.testimonial-copy .quote-mark img{display:block;width:100%;height:100%;object-fit:contain;}
+.testimonial-copy blockquote{
+  font-size:clamp(1.4rem,3vw,2.1rem);font-weight:700;line-height:1.4;margin:0 0 40px;
+  width:100%;max-width:none;
+}
+.testimonial-copy .person strong{display:block;font-size:1.35rem;font-weight:700;}
+.testimonial-copy .person span{color:var(--gray-500);font-size:1rem;}
+
+/* ---------- Blog ---------- */
+.blog-list{border-top:1px solid rgba(10,10,10,0.12);}
+.blog-row{
+  display:grid;grid-template-columns:1fr;gap:20px;align-items:center;
+  padding:36px 0;border-bottom:1px solid rgba(10,10,10,0.12);
+  color:inherit;
+}
+@media (min-width:760px){
+  .blog-row{grid-template-columns:140px 1fr auto auto;gap:32px;}
+}
+.blog-row .thumb{
+  width:100%;max-width:220px;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:var(--gray-300);
+}
+.blog-row .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.blog-row:hover .thumb img{transform:scale(1.08);}
+.blog-row h3{font-size:clamp(1.25rem,2.4vw,1.6rem);font-weight:700;line-height:1.35;max-width:34ch;}
+.blog-row .date{color:var(--gray-700);font-size:1.1rem;white-space:nowrap;}
+.blog-row .go{
+  width:52px;height:52px;border-radius:50%;background:var(--black);color:var(--white);
+  display:flex;align-items:center;justify-content:center;flex:none;
+  transition:background-color .25s ease, transform .25s ease;
+}
+.blog-row .go svg{width:18px;height:18px;stroke:currentColor;}
+.blog-row:hover .go{background:var(--orange);transform:rotate(45deg);}
+
+/* ---------- Contact ---------- */
+.contact{text-align:left;}
+.contact-links{
+  display:flex;flex-wrap:wrap;gap:24px 56px;
+  font-size:clamp(1.4rem,3.4vw,2.1rem);font-weight:700;
+}
+.contact-links a{position:relative;transition:color .2s ease;}
+.contact-links a:hover{color:var(--orange);}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--gray-100);padding:96px 0 40px;}
+.footer-top{
+  display:grid;grid-template-columns:1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(10,10,10,0.12);
+}
+@media (min-width:760px){.footer-top{grid-template-columns:1.3fr 1fr 1fr 1fr;}}
+.footer-top .logo{color:var(--black);margin-bottom:18px;display:inline-flex;width:52px;}
+.footer-top p{color:var(--gray-500);font-size:0.95rem;line-height:1.6;max-width:26ch;}
+.footer-col h4{font-size:1.35rem;font-weight:400;margin-bottom:22px;}
+.footer-col ul li{margin-bottom:14px;}
+.footer-col a{color:var(--gray-700);font-size:0.95rem;transition:color .2s ease;}
+.footer-col a:hover{color:var(--orange);}
+.footer-bottom{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:28px;
+  color:var(--gray-500);font-size:0.9rem;
+}
+.back-to-top{
+  width:44px;height:44px;border-radius:50%;background:var(--black);color:var(--white);
+  display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;
+  transition:background-color .2s ease, transform .2s ease;
+}
+.back-to-top svg{width:16px;height:16px;stroke:currentColor;}
+.back-to-top:hover{background:var(--orange);transform:translateY(-3px);}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;background:rgba(10,10,10,0.9);z-index:500;
+  display:flex;align-items:center;justify-content:center;padding:32px;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
+}
+.lightbox.is-open{opacity:1;pointer-events:auto;}
+.lightbox-inner{
+  max-width:920px;width:100%;background:var(--white);border-radius:24px;overflow:hidden;
+  display:grid;grid-template-columns:1fr;max-height:88vh;
+}
+@media (min-width:700px){.lightbox-inner{grid-template-columns:1.1fr 1fr;}}
+.lightbox-inner img{width:100%;height:100%;object-fit:cover;max-height:60vh;}
+@media (min-width:700px){.lightbox-inner img{max-height:88vh;}}
+.lightbox-info{padding:40px;}
+.lightbox-info h3{font-size:2rem;font-weight:500;margin-bottom:8px;}
+.lightbox-info p{color:var(--gray-700);margin-bottom:24px;}
+.lightbox-close{
+  position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;
+  background:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.lightbox-close svg{width:18px;height:18px;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a href="#home" class="logo" aria-label="Mari Lemos"><img src="logo_amarelo.svg" alt="Mari Lemos"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#home">Home</a>
+      <a href="#services">Serviços</a>
+      <a href="#work">Trabalhos</a>
+      <a href="#awwards">Clientes</a>
+      <a href="#blog">Projetos</a>
+      <a href="#contact">Contatot</a>
+    </nav>
+    <div class="header-actions">
+      <a class="pill-btn" href="#contact">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        Vamos começar seu projeto
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#services">Serviços</a>
+  <a href="#work">Trabalhos</a>
+  <a href="#awwards">Clientes</a>
+  <a href="#blog">Projetos</a>
+  <a href="#contact">Contato</a>
+  <a class="pill-btn" href="#contact">
+    <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+    Vamos começar seu projeto
+  </a>
+</div>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-watermark" aria-hidden="true">Mariana</div>
+    <div class="container">
+      <div class="hero-copy">
+        <h1>Mariana<br>Lemos</h1>
+        <p>I'm a narrative architect and knowledge curator based in São Paulo passionate about storytelling, collaboration and shaping new thinkers.</p>
+        <a class="btn on-dark" href="#services">
+          <span class="bump"><span class="disc"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></span>
+          Serviços
+        </a>
+      </div>
+      <div class="hero-visual">
+        <div class="blob">
+          <img src="https://instagram.fcgh37-1.fna.fbcdn.net/v/t51.82787-15/556839041_18538205485058882_791111814137741764_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=MzczMzQ3MjE1MzEwMzYzNTYxNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuOTYwLnNkci5yZWd1bGFyX3Bob3RvLkMzIn0%3D&_nc_ohc=WEROJo9E3-YQ7kNvwG81vZu&_nc_oc=AdqdoVDcfFEGEowjON6UAO9ZXWR-kYFJIB7hWxAY43r93KGbm82TFoV4egmYkmg9bF3IOrFCbsrn4WCMhhSHqOMp&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fcgh37-1.fna&_nc_gid=uUQuIo5u5ELC9-CAZPhZKw&_nc_ss=7a22e&oh=00_AQLqStJz4nyWRcirRQ3sdZSi2z4d1v9wRdxbJ_12FXdDAQ&oe=6AA00813" alt="Portrait of Mariana Lemos, narrative architect" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <svg class="spark" viewBox="0 0 267 197" fill="none" aria-hidden="true">
+          <g stroke="#F43C00" stroke-width="4">
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(142 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(59 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(101 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(174 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(-157 133 98)"/>
+          </g>
+        </svg>
+        <h2>My<br>Services</h2>
+      </div>
+
+      <div class="services-list">
+        <div class="service-row">
+          <div class="service-name">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+            <h3>Web Design</h3>
+          </div>
+          <p>Developer-friendly UX patterns that developers should start using in their everyday code.</p>
+        </div>
+        <div class="service-row">
+          <div class="service-name">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg></span>
+            <h3>Loren Ipsun</h3>
+          </div>
+          <p>Loren Ipsun patterns that developers should start using in their everyday code.</p>
+        </div>
+        <div class="service-row">
+          <div class="service-name">
+            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg></span>
+            <h3>Strategy</h3>
+          </div>
+          <p>Strategy case study patterns that developers should start using in their everyday code.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="section" id="work">
+    <div class="container">
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Projetos em Destaque</span><em>/</em><span>Projetos em Destaque</span><em>/</em><span>Projetos em Destaque</span><em>/</em>
+          <span>Trabalhos em Destaque</span><em>/</em><span>Trabalhos em Destaque</span><em>/</em><span>Trabalhos em Destaque</span><em>/</em>
+        </div>
+      </div>
+
+      <div class="work-grid">
+        <button class="work-card" type="button" data-title="Feira Preta" data-tag="Loren Ipsun" data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, nisl at consequat tincidunt, dui arcu facilisis magna, vitae porttitor justo justo sed erat." data-img="https://pretahub.com/wp-content/uploads/2025/09/SITE-2-scaled.jpg">
+          <span class="frame">
+            <img src="https://pretahub.com/wp-content/uploads/2025/09/SITE-2-scaled.jpg" alt="Feira Preta project preview" loading="lazy">
+            <span class="view-badge">Ver Detalhes</span>
+          </span>
+          <span class="meta"><h3>Feira Preta</h3><span class="tag">Loren Ipsun</span></span>
+        </button>
+
+        <button class="work-card" type="button" data-title="Ana Paula Xongani" data-tag="Loren Ipsun" data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur viverra, sapien non consequat malesuada, libero lectus ullamcorper neque, vel luctus magna sem non justo." data-img="https://anapaulaxongani.com/wp-content/uploads/2021/08/Colors_byBrunoGomes-13.jpeg">
+          <span class="frame">
+            <img src="https://anapaulaxongani.com/wp-content/uploads/2021/08/Colors_byBrunoGomes-13.jpeg" alt="Ana Paula Xongani project preview" loading="lazy">
+            <span class="view-badge">Ver Detalhes</span>
+          </span>
+          <span class="meta"><h3>Ana Paula Xongani</h3><span class="tag">Loren Ipsun</span></span>
+        </button>
+
+        <button class="work-card" type="button" data-title="No Front" data-tag="Loren Ipsun" data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean fermentum, lectus in finibus volutpat, orci erat posuere massa, sed efficitur enim lorem vitae nibh." data-img="https://nofront.com.br/assets/hero-banner-ZzkgBr-8.png">
+          <span class="frame">
+            <img src="https://nofront.com.br/assets/hero-banner-ZzkgBr-8.png" alt="No Front Empoderamento preview" loading="lazy">
+            <span class="view-badge">Ver Detalhes</span>
+          </span>
+          <span class="meta"><h3>No Front</h3><span class="tag">Loren Ipsun</span></span>
+        </button>
+
+        <button class="work-card" type="button" data-title="Alora Herand" data-tag="Loren Ipsun" data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at ligula sed tortor tincidunt fermentum, quisque dignissim magna nec ex porta, at suscipit metus blandit." data-img="https://picsum.photos/id/1016/900/1100">
+          <span class="frame">
+            <img src="https://picsum.photos/id/1016/700/900" alt="Alora Herand project preview" loading="lazy">
+            <span class="view-badge">Ver Detalhes</span>
+          </span>
+          <span class="meta"><h3>Alora Herand</h3><span class="tag">Loren Ipsun</span></span>
+        </button>
+
+        <button class="work-card" type="button" data-title="Sora Vale" data-tag="Branding" data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus, massa quis placerat luctus, urna est tincidunt libero, a convallis purus nibh at arcu." data-img="https://picsum.photos/id/1025/900/1100">
+          <span class="frame">
+            <img src="https://picsum.photos/id/1025/700/900" alt="Sora Vale project preview" loading="lazy">
+            <span class="view-badge">Ver Detalhes</span>
+          </span>
+          <span class="meta"><h3>Sora Vale</h3><span class="tag">Loren Ipsun</span></span>
+        </button>
+
+        <button class="work-card" type="button" data-title="Nina Sol" data-tag="Strategy" data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum, justo sed facilisis porttitor, eros neque tristique nunc, vel consequat augue risus in metus." data-img="https://picsum.photos/id/1043/900/1100">
+          <span class="frame">
+            <img src="https://picsum.photos/id/1043/700/900" alt="Nina Sol project preview" loading="lazy">
+            <span class="view-badge">Ver Detalhes</span>
+          </span>
+          <span class="meta"><h3>Nina Sol</h3><span class="tag">Loren Ipsun</span></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWWARDS -->
+  <section class="section" id="awwards">
+    <div class="container">
+      <div class="section-head">
+        <svg class="spark" viewBox="0 0 267 197" fill="none" aria-hidden="true">
+          <g stroke="#F43C00" stroke-width="4">
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(142 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(59 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(101 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(174 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(-157 133 98)"/>
+          </g>
+        </svg>
+        <h2>Clientes</h2>
+      </div>
+
+      <div class="logo-grid">
+        <span class="logo-item" title="Swiggy" aria-label="Swiggy">
+          <svg viewBox="0 0 254 75" xmlns="http://www.w3.org/2000/svg"><path d="M25.02 74.95C24.97 74.92 24.92 74.87 24.87 74.82C23.98 73.7 18.48 66.71 12.88 57.74C11.2 54.88 10.11 52.64 10.32 52.07C10.87 50.57 20.63 49.75 23.64 51.1C24.56 51.51 24.54 52.06 24.54 52.38C24.54 53.75 24.47 57.43 24.47 57.43C24.47 58.19 25.07 58.8 25.83 58.8C26.58 58.8 27.18 58.19 27.18 57.42L27.17 48.24C27.17 47.44 26.32 47.24 26.16 47.21C24.59 47.2 21.4 47.19 17.98 47.19C10.42 47.19 8.74 47.51 7.45 46.66C4.66 44.83 0.11 32.38 0 25.38C-0.15 15.5 5.62 6.95 13.74 2.71C17.12 0.98 20.96 0 25 0C37.85 0 48.43 9.85 49.84 22.52L49.84 22.55C50.1 25.61 33.47 26.27 30.19 25.37C29.68 25.24 29.56 24.71 29.56 24.49C29.56 22.16 29.54 15.61 29.54 15.61C29.54 14.85 28.93 14.23 28.18 14.23C27.43 14.23 26.82 14.85 26.82 15.62L26.85 27.69C26.87 28.45 27.5 28.66 27.67 28.69L37.99 28.69C43.49 28.69 45.81 29.34 47.34 30.53C48.36 31.32 48.76 32.84 48.41 34.81C45.33 52.32 25.76 74.04 25.02 74.95ZM78.07 34.04C83.01 36.18 86.06 38.57 86.06 43.8C86.06 49.14 82.07 52.59 75.91 52.59C70.91 52.59 66.9 50.29 64.9 46.29L64.58 45.64L70.45 42.18L70.84 42.82C72.16 45.01 73.64 45.95 75.79 45.95C77.63 45.95 78.88 45.12 78.88 43.87C78.88 42.5 77.98 41.99 75.2 40.75L73.79 40.14C70.02 38.5 66.53 36.24 66.53 30.74C66.53 25.8 70.25 22.36 75.58 22.36C79.62 22.36 82.4 23.95 84.31 27.36L84.66 28L78.97 31.72L78.58 31.01C77.62 29.28 76.73 28.93 75.59 28.93C74.41 28.93 73.64 29.6 73.64 30.64C73.64 31.83 74.2 32.35 76.67 33.43L78.07 34.04ZM119.66 35.04L123.81 23.3L130.93 23.3L120.38 53.07L118.8 53.07L112.4 39.13C112.11 38.49 111.79 37.7 111.53 36.97C111.25 37.7 110.94 38.49 110.65 39.14L103.99 53.08L102.42 53.08L91.7 23.31L99.31 23.31L103.5 35.05C103.76 35.8 104.03 36.72 104.28 37.56C104.56 36.69 104.9 35.74 105.26 34.98L110.77 23.06L112.29 23.06L117.88 34.98C118.23 35.74 118.58 36.69 118.86 37.56C119.11 36.71 119.4 35.79 119.66 35.04ZM139.23 52.22L139.23 22.69L146.41 22.69L146.41 52.22L139.23 52.22ZM169.97 42.29L169.97 35.69L183.3 35.69L183.3 48.93L183.03 49.15C181.51 50.43 177.46 52.58 171.98 52.58C162.73 52.58 156.28 46.36 156.28 37.45C156.28 28.7 162.5 22.35 171.09 22.35C175.81 22.35 179.28 23.71 181.67 26.48L182.14 27.02L177.24 31.95L176.71 31.4C175.34 29.97 173.92 29.08 171.1 29.08C166.71 29.08 163.64 32.52 163.64 37.45C163.64 42.58 166.91 45.9 172 45.9C173.68 45.9 175.43 45.6 176.63 45.13L176.63 42.28L169.97 42.29ZM206.38 42.29L206.38 35.69L219.72 35.69L219.72 48.93L219.44 49.15C217.91 50.43 213.87 52.58 208.39 52.58C199.14 52.58 192.69 46.36 192.69 37.45C192.69 28.7 198.91 22.35 207.49 22.35C212.22 22.35 215.68 23.71 218.07 26.48L218.54 27.02L213.64 31.95L213.1 31.4C211.73 29.97 210.31 29.08 207.48 29.08C203.09 29.08 200.02 32.52 200.02 37.45C200.02 42.58 203.3 45.9 208.38 45.9C210.06 45.9 211.81 45.6 213.01 45.13L213.01 42.28L206.38 42.29ZM246.06 22.69L253.56 22.69L243.26 42.34L243.26 52.22L236.04 52.22L236.04 42.77L225.05 22.7L233.06 22.7L238.13 32.12C238.68 33.14 239.25 34.5 239.69 35.6C240.1 34.51 240.64 33.17 241.19 32.13L246.06 22.69Z"/></svg>
+        </span>
+        <span class="logo-item" title="Mighty Buildings" aria-label="Mighty Buildings">
+          <svg viewBox="0 0 235 71" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M102.84 6.89L102.84 28.54L100.59 28.54L100.59 18.54C100.59 16.17 100.59 14.03 100.82 11.88L100.59 11.88C100.14 13.55 99.24 15.45 98.57 17.59L96.32 23.54L94.08 23.54L91.83 17.59C91.2 15.76 90.52 13.93 89.81 12.12L89.58 12.12C89.81 14.26 90.04 16.41 90.04 18.54L90.04 28.54L87.56 28.54L87.56 6.89L90.04 6.89L93.63 15.93C94.08 17.12 94.75 19.26 95.2 20.45L95.43 20.45C95.87 19.26 96.55 17.12 97 15.93L100.59 6.89L102.84 6.89ZM111.6 28.54L114.07 28.54L114.07 6.89L111.6 6.89ZM122.16 22.35L122.16 13.31C122.16 9.03 124.4 6.65 128 6.65C131.59 6.65 133.62 9.03 133.84 13.07L131.37 13.07C131.37 10.22 130.02 9.03 128 9.03C125.98 9.03 124.63 10.46 124.63 13.31L124.63 22.35C124.63 25.2 125.98 26.63 128.22 26.63C130.47 26.63 131.82 25.2 131.82 22.59L131.82 19.26L128 19.26L128 16.88L133.84 16.88L133.84 22.35C133.84 26.4 131.6 28.78 128 28.78C124.63 29.01 122.16 26.63 122.16 22.35ZM152.93 6.89L152.93 28.54L150.46 28.54L150.46 18.78L143.95 18.78L143.95 28.54L141.48 28.54L141.48 6.89L143.95 6.89L143.95 16.41L150.46 16.41L150.46 6.89ZM171.13 9.27L166.64 9.27L166.64 28.54L164.16 28.54L164.16 9.27L159.67 9.27L159.67 6.89L170.9 6.89L170.9 9.27ZM181.23 21.16L176.29 6.89L178.76 6.89L181.46 14.74C181.91 15.69 182.13 17.12 182.58 18.07C183.03 16.88 183.26 15.69 183.71 14.74L186.4 7.13L188.65 7.13L183.48 21.4L183.48 28.77L181.01 28.77L181.01 21.16ZM96.55 56.61C96.55 53.99 94.98 52.8 92.73 52.8L90.04 52.8L90.04 60.41L92.95 60.41C95.43 60.18 96.55 58.99 96.55 56.61ZM90.04 43.28L90.04 50.42L92.73 50.42C94.75 50.42 95.87 49.23 95.87 46.85C95.87 44.48 94.75 43.52 92.73 43.52L90.04 43.52ZM99.02 56.61C99.02 60.41 96.77 62.79 93.18 62.79L87.56 62.79L87.56 41.14L92.73 41.14C96.1 41.14 98.12 43.28 98.12 46.85C98.12 49.23 97.22 50.9 95.88 51.61C97.89 52.09 99.02 53.99 99.02 56.61ZM106.21 56.13L106.21 40.91L108.68 40.91L108.68 56.13C108.68 59.22 110.02 60.65 112.05 60.65C114.07 60.65 115.42 59.22 115.42 56.13L115.42 40.91L117.89 40.91L117.89 56.13C117.89 60.65 115.64 63.03 112.05 63.03C108.68 63.03 106.21 60.41 106.21 56.13ZM126.2 62.56L128.67 62.56L128.67 40.91L126.2 40.91ZM146.87 60.18L146.87 62.56L137.21 62.56L137.21 40.91L139.68 40.91L139.68 60.17L146.87 60.17ZM158.55 60.18C161.02 60.18 162.37 58.75 162.37 55.89L162.37 47.57C162.37 44.71 161.02 43.29 158.55 43.29L156.08 43.29L156.08 60.17L158.55 60.17ZM153.61 40.91L158.55 40.91C162.37 40.91 164.84 43.28 164.84 47.57L164.84 56.13C164.84 60.18 162.59 62.79 158.55 62.79L153.61 62.79ZM172.93 62.56L175.17 62.56L175.17 40.91L172.93 40.91ZM195.61 40.91L195.61 62.56L193.14 62.56L188.2 50.9C187.53 49.23 186.63 46.86 186.18 45.66C186.4 47.57 186.4 50.42 186.4 52.33L186.4 62.56L183.93 62.56L183.93 40.91L186.4 40.91L191.57 52.8C192.24 54.23 193.14 56.61 193.59 57.8C193.37 55.9 193.37 52.8 193.37 50.9L193.37 40.91L195.61 40.91ZM203.92 56.37L203.92 47.33C203.92 43.05 206.17 40.67 209.76 40.67C213.36 40.67 215.38 43.05 215.6 47.09L213.13 47.09C212.91 44.24 211.78 43.05 209.76 43.05C207.74 43.05 206.39 44.48 206.39 47.33L206.39 56.37C206.39 59.22 207.74 60.65 209.99 60.65C212.23 60.65 213.58 59.22 213.58 56.61L213.58 53.28L209.99 53.28L209.99 50.9L215.6 50.9L215.6 56.37C215.6 60.41 213.36 62.79 209.76 62.79C206.17 63.03 203.92 60.65 203.92 56.37ZM222.12 56.85L224.59 56.85C224.59 59.23 225.94 60.65 227.96 60.65C230.21 60.65 231.33 59.23 231.33 57.08C231.33 52.33 222.57 52.33 222.57 45.9C222.57 42.81 224.81 40.43 227.96 40.43C231.33 40.43 233.35 42.81 233.57 46.38L231.11 46.38C231.11 44 229.76 42.81 227.96 42.81C225.94 42.81 224.81 44 224.81 45.9C224.81 50.42 233.57 50.42 233.57 57.08C233.57 60.18 231.55 63.03 227.74 63.03C224.59 63.03 222.34 60.65 222.12 56.85ZM32.69 58.64L30.86 60.43L0 31.19L0 69.68L54.53 69.68L62.84 61.92L62.84 42.97L56.22 36.26L32.69 58.64ZM0 22.08L0 0L54.53 0L62.84 8.21L62.84 20.74L31 51.18L30.72 51.18L0 22.08Z"/></svg>
+        </span>
+        <span class="logo-item" title="Dyte" aria-label="Dyte">
+          <svg viewBox="0 0 195 78" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0L21.67 0L21.67 21.67L0 21.67Z" transform="translate(37.92,43.77)"/>
+            <path d="M43.33 0.09C42.44 0.03 41.54 0 40.63 0C18.19 0 0 18.19 0 40.63C0 41.53 0.03 42.44 0.09 43.33L27.08 43.33L27.08 27.08L43.33 27.08Z" transform="translate(5.42,11.27)"/>
+            <path d="M0 24.92C0 21.89 0.59 19.21 1.77 16.87C2.99 14.52 4.63 12.72 6.7 11.46C8.78 10.2 11.08 9.57 13.62 9.57C15.55 9.57 17.39 10 19.15 10.87C20.9 11.69 22.29 12.81 23.33 14.22L23.33 0L30.95 0L30.95 40L23.33 40L23.33 35.57C22.4 37.05 21.1 38.24 19.41 39.14C17.73 40.04 15.79 40.49 13.57 40.49C11.07 40.49 8.78 39.84 6.7 38.54C4.63 37.25 2.99 35.43 1.77 33.08C0.59 30.71 0 27.98 0 24.92ZM23.38 25.03C23.38 23.19 23.03 21.62 22.31 20.33C21.6 18.99 20.63 17.98 19.41 17.3C18.2 16.58 16.89 16.22 15.5 16.22C14.11 16.22 12.82 16.56 11.64 17.24C10.46 17.93 9.49 18.94 8.74 20.27C8.03 21.57 7.67 23.12 7.67 24.92C7.67 26.72 8.03 28.31 8.74 29.68C9.49 31.01 10.46 32.04 11.64 32.76C12.85 33.48 14.14 33.84 15.5 33.84C16.89 33.84 18.2 33.5 19.41 32.81C20.63 32.09 21.6 31.08 22.31 29.79C23.03 28.45 23.38 26.87 23.38 25.03Z" transform="translate(70.42,14.51)"/>
+            <path d="M31.86 0L13.46 44.11L5.47 44.11L11.91 29.19L0 0L8.42 0L16.09 20.92L23.87 0Z" transform="translate(105.26,24.57)"/>
+            <path d="M11.1 13.62L11.1 28.11C11.1 29.12 11.33 29.86 11.8 30.33C12.3 30.76 13.12 30.98 14.27 30.98L17.75 30.98L17.75 37.35L13.03 37.35C6.7 37.35 3.54 34.26 3.54 28.06L3.54 13.62L0 13.62L0 7.41L3.54 7.41L3.54 0L11.1 0L11.1 7.41L17.75 7.41L17.75 13.62Z" transform="translate(138.81,17.16)"/>
+            <path d="M29.55 14.81C29.55 15.89 29.48 16.87 29.34 17.73L7.62 17.73C7.79 19.89 8.55 21.59 9.87 22.81C11.19 24.04 12.82 24.65 14.75 24.65C17.54 24.65 19.52 23.44 20.7 21.03L28.8 21.03C27.94 23.91 26.3 26.29 23.87 28.16C21.44 30 18.45 30.92 14.91 30.92C12.05 30.92 9.48 30.29 7.19 29.03C4.93 27.73 3.16 25.91 1.88 23.57C0.63 21.23 0 18.52 0 15.46C0 12.36 0.63 9.64 1.88 7.3C3.13 4.96 4.88 3.15 7.13 1.89C9.39 0.63 11.98 0 14.91 0C17.73 0 20.26 0.61 22.47 1.84C24.72 3.06 26.46 4.81 27.67 7.08C28.93 9.32 29.55 11.89 29.55 14.81ZM21.77 12.65C21.74 10.7 21.04 9.15 19.68 8C18.32 6.81 16.66 6.22 14.7 6.22C12.84 6.22 11.26 6.79 9.98 7.95C8.72 9.06 7.96 10.63 7.67 12.65Z" transform="translate(160.03,24.08)"/>
+          </svg>
+        </span>
+        <span class="logo-item" title="Razorpay" aria-label="Razorpay">
+          <svg viewBox="0 0 260 55" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"><path d="M2.15 14.4L0 22.33L12.29 14.35L4.25 44.45L12.42 44.45L24.3 0" transform="translate(14.58,0.13)"/><path d="M3.38 21.28L0 33.93L16.74 33.93L23.58 8.19L3.38 21.28ZM61.52 10.14C61.11 11.66 60.32 12.78 59.14 13.5C57.97 14.21 56.33 14.57 54.2 14.57L47.45 14.57L49.82 5.71L56.57 5.71C58.69 5.71 60.15 6.06 60.94 6.79C61.73 7.51 61.92 8.62 61.52 10.15ZM68.51 9.96C69.37 6.76 69.01 4.3 67.44 2.57C65.87 0.86 63.12 0 59.19 0L44.13 0L35.06 33.94L42.38 33.94L46.03 20.26L50.83 20.26C51.91 20.26 52.76 20.44 53.38 20.78C54 21.14 54.36 21.75 54.47 22.64L55.78 33.94L63.62 33.94L62.35 23.41C62.09 21.06 61.02 19.67 59.13 19.26C61.54 18.57 63.55 17.4 65.17 15.79C66.79 14.19 67.94 12.18 68.51 9.97ZM86.3 21.79C85.68 24.09 84.74 25.83 83.47 27.05C82.2 28.27 80.67 28.87 78.9 28.87C77.09 28.87 75.86 28.28 75.22 27.09C74.57 25.9 74.55 24.18 75.15 21.92C75.75 19.66 76.71 17.9 78.04 16.62C79.36 15.35 80.9 14.71 82.68 14.71C84.45 14.71 85.67 15.33 86.28 16.55C86.91 17.78 86.92 19.53 86.31 21.82ZM89.5 9.78L88.59 13.22C88.19 11.99 87.42 11 86.29 10.26C85.15 9.54 83.75 9.17 82.07 9.17C80.01 9.17 78.03 9.7 76.13 10.77C74.24 11.83 72.58 13.34 71.16 15.28C69.74 17.23 68.7 19.43 68.03 21.9C67.38 24.39 67.24 26.57 67.64 28.46C68.05 30.36 68.91 31.81 70.23 32.82C71.57 33.85 73.27 34.35 75.36 34.35C77.02 34.36 78.65 34 80.16 33.3C81.64 32.63 82.97 31.64 84.03 30.4L83.08 33.98L90.15 33.98L96.62 9.79L89.52 9.79ZM122.05 9.78L101.47 9.78L100.03 15.17L112 15.17L96.17 28.9L94.82 33.96L116.06 33.96L117.5 28.57L104.67 28.57L120.75 14.64ZM140.16 21.75C139.53 24.13 138.58 25.92 137.33 27.09C136.09 28.27 134.58 28.85 132.8 28.85C129.09 28.85 127.87 26.49 129.14 21.75C129.77 19.4 130.72 17.63 131.98 16.44C133.25 15.24 134.79 14.65 136.6 14.65C138.37 14.65 139.57 15.24 140.18 16.43C140.8 17.62 140.79 19.4 140.16 21.75ZM144.31 10.69C142.68 9.67 140.6 9.17 138.06 9.17C135.49 9.17 133.12 9.67 130.93 10.68C128.75 11.69 126.84 13.19 125.34 15.07C123.8 16.97 122.69 19.2 122.01 21.75C121.34 24.28 121.26 26.51 121.78 28.41C122.29 30.32 123.39 31.78 125.02 32.79C126.67 33.81 128.77 34.32 131.35 34.32C133.89 34.32 136.24 33.81 138.41 32.79C140.58 31.77 142.44 30.31 143.98 28.4C145.52 26.49 146.62 24.27 147.3 21.72C147.99 19.18 148.07 16.96 147.55 15.05C147.03 13.14 145.95 11.68 144.33 10.66ZM169.57 16.24L171.39 9.66C170.77 9.35 169.97 9.18 168.96 9.18C167.34 9.18 165.78 9.59 164.28 10.4C162.99 11.09 161.9 12.07 160.97 13.29L161.91 9.75L154.81 9.76L148.3 33.93L155.48 33.93L158.86 21.3C159.35 19.46 160.23 18.01 161.51 16.99C162.77 15.96 164.36 15.44 166.26 15.44C167.44 15.44 168.53 15.71 169.56 16.25ZM189.54 21.87C188.93 24.13 188 25.85 186.73 27.04C185.46 28.24 183.94 28.83 182.16 28.83C180.39 28.83 179.18 28.23 178.54 27.03C177.88 25.82 177.87 24.07 178.48 21.78C179.1 19.49 180.04 17.73 181.33 16.51C182.63 15.29 184.16 14.67 185.93 14.67C187.67 14.67 188.85 15.3 189.47 16.57C190.1 17.85 190.12 19.61 189.51 21.87ZM194.53 10.73C193.2 9.66 191.5 9.13 189.44 9.13C187.64 9.13 185.92 9.54 184.29 10.37C182.66 11.2 181.34 12.33 180.32 13.76L181.55 9.75L174.54 9.75L172.7 16.67L165.34 44.23L172.52 44.23L176.23 30.36C176.6 31.59 177.35 32.56 178.49 33.26C179.64 33.96 181.05 34.3 182.74 34.3C184.82 34.3 186.81 33.8 188.7 32.79C190.6 31.77 192.23 30.31 193.63 28.42C195.02 26.53 196.05 24.34 196.71 21.87C197.37 19.39 197.51 17.17 197.13 15.24C196.74 13.3 195.88 11.8 194.55 10.74ZM218.37 21.77C217.75 24.06 216.81 25.81 215.55 27.01C214.28 28.22 212.75 28.83 210.98 28.83C209.16 28.83 207.94 28.24 207.3 27.05C206.64 25.86 206.63 24.13 207.23 21.88C207.83 19.62 208.78 17.85 210.11 16.58C211.43 15.31 212.98 14.67 214.75 14.67C216.53 14.67 217.73 15.29 218.35 16.51C218.98 17.73 218.99 19.49 218.37 21.78ZM221.57 9.75L220.66 13.19C220.26 11.95 219.5 10.96 218.36 10.23C217.22 9.5 215.81 9.14 214.14 9.14C212.08 9.14 210.09 9.67 208.19 10.74C206.3 11.8 204.63 13.3 203.21 15.24C201.8 17.18 200.76 19.38 200.09 21.86C199.43 24.35 199.3 26.53 199.7 28.42C200.1 30.31 200.96 31.77 202.29 32.79C203.61 33.8 205.33 34.31 207.41 34.31C209.09 34.31 210.69 33.96 212.22 33.26C213.7 32.58 215.02 31.59 216.08 30.35L215.12 33.93L222.2 33.93L228.66 9.76ZM258.37 9.76L254.03 9.75L251.38 9.76L249.81 11.95L240.64 24.77L238.75 9.76L231.24 9.76L235.04 32.57L226.64 44.24L234.13 44.24L236.34 41.1L238.78 37.63L249.41 22.51L258.37 9.78Z" transform="translate(0.11,0.13)"/></svg>
+        </span>
+        <span class="logo-item" title="Fampay" aria-label="Fampay">
+          <svg viewBox="0 0 203 59" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.28 20.11C14.2 20.16 14.11 20.18 14.02 20.17C13.93 20.17 13.84 20.13 13.77 20.08C12.36 19.19 5.28 14.44 0.49 8.49C-2.43 4.81 8.74 -0.66 8.74 0.06C8.75 3.97 9.83 14.24 14.42 19.23C14.51 19.34 14.55 19.48 14.55 19.63C14.54 19.77 14.49 19.91 14.39 20.01Z" transform="translate(168.87,32.42)"/>
+            <path d="M16.1 28.67L26.26 24.03C27.55 23.52 28.71 22.74 29.66 21.75C30.62 20.75 31.35 19.56 31.81 18.25L33.07 14.67C33.1 14.47 33.03 14.29 32.97 14.25C32.75 14.15 32.65 14.15 32.56 14.18L13.16 22.45L13.23 22.14C13.28 21.85 13.39 21.58 13.56 21.34C13.72 21.1 13.94 20.91 14.19 20.76C17.47 18.73 29.24 12.68 29.24 12.68C31.09 11.82 32.73 10.56 34.06 9.01C35.39 7.46 36.37 5.64 36.94 3.67L37.83 0.61C37.86 0.36 37.78 0.25C37.62 0.06 37.5 0.03C37.18 0.03 19.47 6.94 13.77 9.72C8.07 12.51 2.24 16.08 0.22 26.61C-0.6 30.87 0.91 34.48 3.73 38.57C3.72 34.55 13.84 29.77 16.1 28.67Z" transform="translate(164.1,0)"/>
+            <path d="M3.22 6.03C1.61 4.8 0.24 4.69 0 4.8C-0.1 4.42 1.85 3.49 2.09 3.25C2.88 2.49 3.32 1.49 4.25 0.84C6.13 -0.49 8.45 -0.08 10.4 0.98C11.4 1.53 14.13 3.33 14.17 3.42C15.66 4.54 17.05 5.8 18.31 7.17C18.39 7.39 18.39 7.52 18.31 7.86C17.85 8.31 17.4 8.62 16.84 9.1C13.12 12.23 10.88 20.58 10.85 21.61C10.85 21.68 8.67 9.89 3.22 6.03Z" transform="translate(152.01,4.62)"/>
+            <path d="M13.78 17.25L8.69 17.25L8.69 35.7L4.35 35.7L4.35 17.25L0 17.25L0 13.68L4.35 13.68L4.35 9.07C4.34 7.85 4.48 6.64 4.79 5.46C5.05 4.42 5.54 3.44 6.22 2.6C6.91 1.78 7.78 1.13 8.76 0.7C9.96 0.2 11.24 -0.03 12.53 0C13.45 -0.01 14.37 0.1 15.27 0.33L14.75 4.09C14.41 4 14.08 3.92 13.74 3.86C13.35 3.79 12.96 3.76 12.57 3.77C11.87 3.74 11.18 3.89 10.56 4.21C10.07 4.49 9.67 4.89 9.39 5.38C9.09 5.91 8.9 6.48 8.8 7.08C8.71 7.73 8.66 8.39 8.66 9.06L8.66 13.68L13.75 13.68Z" transform="translate(0,12.14)"/>
+            <path d="M15.28 8.34C15.28 6.7 14.78 5.49 13.8 4.7C12.66 3.87 11.27 3.46 9.87 3.54C8.66 3.53 7.47 3.77 6.36 4.26C5.34 4.69 4.41 5.31 3.61 6.09L1.28 3.3C2.42 2.24 3.77 1.42 5.23 0.89C6.84 0.29 8.54 -0.01 10.25 0C11.64 -0.03 13.03 0.2 14.34 0.68C15.41 1.07 16.38 1.7 17.19 2.51C17.93 3.3 18.5 4.23 18.85 5.26C19.24 6.35 19.43 7.49 19.43 8.65L19.43 18.25C19.43 18.99 19.43 19.77 19.51 20.6C19.53 21.28 19.61 21.96 19.76 22.62L15.83 22.62C15.59 21.59 15.46 20.53 15.46 19.46L15.32 19.46C14.55 20.61 13.51 21.55 12.29 22.21C10.95 22.88 9.46 23.22 7.97 23.18C7.05 23.17 6.15 23.06 5.26 22.83C4.35 22.61 3.48 22.22 2.7 21.69C1.91 21.15 1.25 20.43 0.77 19.6C0.24 18.62 -0.03 17.51 0.01 16.39C-0.07 14.94 0.41 13.52 1.35 12.42C2.32 11.4 3.52 10.63 4.86 10.19C6.44 9.65 8.09 9.31 9.76 9.19C11.58 9.04 13.41 8.96 15.26 8.96ZM14.21 12.11C13.13 12.11 12.01 12.16 10.86 12.25C9.79 12.34 8.74 12.53 7.71 12.84C6.85 13.07 6.05 13.5 5.38 14.09C5.07 14.37 4.83 14.72 4.67 15.1C4.51 15.49 4.44 15.91 4.45 16.32C4.43 16.89 4.57 17.45 4.85 17.95C5.11 18.38 5.46 18.75 5.89 19.02C6.32 19.3 6.81 19.5 7.32 19.6C7.85 19.72 8.4 19.77 8.94 19.77C10.97 19.77 12.53 19.16 13.62 17.93C14.73 16.66 15.32 15 15.26 13.31L15.26 12.14Z" transform="translate(15.25,25.22)"/>
+            <path d="M7.1 1.24C8.38 0.39 9.89 -0.04 11.42 0C12.82 -0.02 14.2 0.34 15.42 1.03C16.71 1.82 17.69 3.01 18.22 4.42C18.91 3.05 19.99 1.91 21.32 1.14C22.64 0.38 24.14 -0.01 25.67 0C26.92 -0.03 28.17 0.22 29.32 0.73C30.3 1.17 31.17 1.83 31.87 2.66C32.55 3.5 33.06 4.47 33.36 5.52C33.69 6.65 33.85 7.82 33.84 9L33.84 22.66L29.49 22.66L29.49 10.44C29.5 9.58 29.42 8.73 29.26 7.88C29.12 7.13 28.86 6.4 28.47 5.74C28.11 5.13 27.6 4.62 26.99 4.26C26.28 3.86 25.47 3.67 24.66 3.7C23.77 3.67 22.89 3.89 22.11 4.33C21.41 4.73 20.81 5.28 20.36 5.96C19.9 6.64 19.57 7.41 19.39 8.21C19.19 9.05 19.09 9.9 19.09 10.76L19.09 22.66L14.75 22.66L14.75 9.55C14.76 8.77 14.68 7.98 14.52 7.21C14.39 6.54 14.13 5.9 13.74 5.35C13.37 4.85 12.88 4.44 12.32 4.17C11.64 3.86 10.9 3.71 10.15 3.73C9.38 3.72 8.61 3.9 7.92 4.24C7.22 4.58 6.62 5.08 6.15 5.7C5.08 7.02 4.55 8.78 4.55 10.99L4.55 22.73L0.18 22.73L0.18 5.37C0.18 4.79 0.18 4.02 0.13 3.1C0.09 2.17 0.06 1.34 0 0.63L4.09 0.63C4.16 1.19 4.2 1.82 4.23 2.52C4.23 3.21 4.28 3.8 4.28 4.28L4.42 4.28C5.01 3.03 5.94 1.98 7.1 1.24Z" transform="translate(40.85,25.17)"/>
+            <path d="M4.35 33.78L0 33.78L0 0.61L4.26 0.61L4.26 4.05L4.39 4.05C5.16 2.82 6.23 1.82 7.51 1.14C8.98 0.36 10.62 -0.03 12.29 0C13.82 -0.02 15.33 0.29 16.74 0.89C18.05 1.46 19.23 2.3 20.2 3.35C21.18 4.42 21.94 5.68 22.44 7.05C22.97 8.5 23.23 10.03 23.22 11.58C23.23 13.13 22.97 14.68 22.44 16.13C21.95 17.51 21.19 18.77 20.22 19.85C19.25 20.91 18.08 21.76 16.76 22.33C15.32 22.95 13.76 23.26 12.19 23.24C10.66 23.25 9.14 22.9 7.76 22.22C6.43 21.58 5.29 20.58 4.49 19.33L4.35 19.33ZM18.78 11.56C18.78 10.55 18.63 9.55 18.32 8.59C18.02 7.65 17.55 6.79 16.93 6.03C16.31 5.28 15.52 4.68 14.64 4.27C13.65 3.82 12.57 3.6 11.48 3.62C10.43 3.61 9.39 3.83 8.44 4.27C7.55 4.69 6.75 5.29 6.11 6.03C5.45 6.78 4.94 7.65 4.6 8.59C3.9 10.54 3.9 12.68 4.6 14.63C4.94 15.56 5.45 16.42 6.11 17.16C6.76 17.9 7.55 18.5 8.44 18.92C9.39 19.36 10.43 19.58 11.48 19.57C12.57 19.59 13.65 19.36 14.64 18.9C15.52 18.48 16.3 17.88 16.93 17.14C17.55 16.38 18.02 15.51 18.32 14.58C18.63 13.6 18.79 12.59 18.78 11.56Z" transform="translate(81.13,25.22)"/>
+            <path d="M15.28 8.36C15.28 6.72 14.79 5.5 13.8 4.71C12.66 3.88 11.27 3.46 9.87 3.54C8.66 3.53 7.47 3.77 6.36 4.26C5.34 4.69 4.41 5.31 3.61 6.09L1.28 3.3C2.42 2.24 3.77 1.42 5.23 0.89C6.84 0.29 8.54 -0.01 10.25 0C11.64 -0.03 13.03 0.2 14.34 0.68C15.41 1.07 16.38 1.7 17.19 2.52C17.94 3.29 18.52 4.22 18.89 5.24C19.26 6.34 19.45 7.48 19.44 8.64L19.44 18.26C19.44 19 19.44 19.79 19.51 20.61C19.54 21.29 19.62 21.97 19.76 22.63L15.84 22.63C15.59 21.6 15.46 20.54 15.46 19.48L15.32 19.48C14.55 20.62 13.51 21.56 12.3 22.22C10.96 22.89 9.47 23.23 7.97 23.19C7.06 23.18 6.15 23.07 5.27 22.85C4.35 22.62 3.48 22.24 2.7 21.71C1.91 21.16 1.25 20.44 0.77 19.6C0.23 18.63 -0.03 17.52 0.01 16.4C-0.07 14.95 0.41 13.52 1.35 12.42C2.32 11.4 3.52 10.63 4.86 10.19C6.44 9.65 8.09 9.32 9.76 9.2C11.58 9.04 13.42 8.96 15.27 8.96ZM14.21 12.13C13.14 12.13 12.02 12.17 10.86 12.26C9.79 12.35 8.74 12.55 7.72 12.85C6.85 13.09 6.05 13.52 5.38 14.1C5.07 14.39 4.83 14.73 4.67 15.12C4.51 15.5 4.44 15.92 4.46 16.33C4.44 16.89 4.59 17.45 4.86 17.93C5.12 18.36 5.48 18.73 5.9 19C6.34 19.29 6.83 19.49 7.34 19.59C7.87 19.7 8.42 19.75 8.96 19.75C10.99 19.75 12.55 19.14 13.63 17.91C14.75 16.64 15.34 14.99 15.28 13.29L15.28 12.12Z" transform="translate(107.9,25.21)"/>
+            <path d="M11.66 17.27L11.75 17.27L17.81 0L22.43 0L11.79 27.24C11.45 28.1 11.05 28.93 10.59 29.72C10.19 30.42 9.67 31.05 9.06 31.58C8.46 32.1 7.76 32.5 7.01 32.76C6.1 33.05 5.16 33.19 4.21 33.18C3.75 33.18 3.27 33.18 2.8 33.1C2.31 33.06 1.82 32.97 1.34 32.85L1.75 28.99C2.45 29.23 3.19 29.36 3.93 29.36C4.4 29.4 4.87 29.34 5.31 29.17C5.75 29.01 6.14 28.75 6.47 28.41C7.13 27.6 7.65 26.68 8 25.69L9.39 22.02L0 0L4.86 0Z" transform="translate(130.35,25.82)"/>
+          </svg>
+        </span>
+        <span class="logo-item" title="Jupiter" aria-label="Jupiter">
+          <svg viewBox="0 0 193 59" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.99 20.58C18.99 20.58 16.06 27.84 12.42 27.51C10.43 27.33 9.81 25.69 9.81 24.69L9.85 0L0 0L0 25.3C-0.01 29.42 2.98 33.2 8.26 33.44C13.24 33.67 18.98 26.3 18.98 26.3L18.97 32.65L28.77 32.57L28.83 0L19.03 0Z" transform="translate(35.4,11.06)"/>
+            <path d="M18.84 0.14C15.24 0.14 12.06 1.94 9.87 4.69L9.84 0L0.07 0L0 45.24L9.81 45.26L9.83 28.88C11.63 31.51 14.99 33.52 18.78 33.52C25.57 33.54 31.49 26.61 31.51 16.86C31.53 7.11 25.63 0.16 18.84 0.14ZM15.74 29.24C13.31 29.24 10.77 26.32 9.84 23.94L9.86 9.69C10.8 7.32 13.36 4.41 15.79 4.41C19.27 4.42 20.88 8.52 20.87 16.84C20.85 25.15 19.23 29.25 15.74 29.24Z" transform="translate(68.46,11.07)"/>
+            <path d="M0 32.77L9.8 32.77L9.86 0L0 0Z" transform="translate(103.49,11.07)"/>
+            <path d="M16.14 0C6.19 0 0.01 7.66 0 16.66C-0.02 26.41 6.89 32.98 15.47 33.38C19.39 33.56 24.85 31.11 27.45 28.43L25.86 26.12C20.68 30.61 18.37 30.07 18.37 30.07C11.9 30.06 10.75 24.99 10.77 16.3L29.81 16.33C29.31 5.99 23.32 0 16.14 0ZM20.29 13.28L10.77 13.27C10.78 8.14 12.22 1.69 16.14 1.69C19.15 1.69 20.61 9.09 20.29 13.28Z" transform="translate(134.49,11.14)"/>
+            <path d="M19.54 10.9L14.14 10.89L14.16 0L0 13.99L4.17 14L4.2 43.79L14.05 43.79L14.13 13.93L19.53 13.94Z" transform="translate(115.93,0)"/>
+            <path d="M17.79 0.25C14.75 1.14 11.84 3.57 9.85 6.03L9.86 0.39L0 0.39L0 33.16L5.2 33.16L9.81 33.17L9.84 11.99L9.84 11.01C11.17 8.75 13.49 5.54 15.88 5.76C17.46 5.91 18.79 7.66 18.79 9.27L25.63 2.54C25.76 2.41 21.85 -0.93 17.79 0.25Z" transform="translate(167.36,10.54)"/>
+            <path d="M20.27 42.94C20.27 47.65 16.47 51.46 11.78 51.46C7.1 51.46 3.3 47.65 3.3 42.94C3.3 42.81 3.31 42.68 3.31 42.56C3.45 44.48 5.05 46 7 46C8.98 46 10.59 44.45 10.7 42.49L10.7 31.74L0 31.74L0 42.49C0.03 51.11 7 58.1 15.6 58.1C24.18 58.1 31.13 51.14 31.2 42.54L31.2 0L20.27 0Z"/>
+          </svg>
+        </span>
+      </div>
+      <div class="client-grid" aria-label="Clientes">
+        <span class="client-name"><img src="clientes/natura-co-logo-png_seeklogo-461660.png" alt="Natura" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/nestle-logo-png_seeklogo-98327.png" alt="Nestlé" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/casas-bahia-logo-png_seeklogo-386170.png" alt="Casas Bahia" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/gpa-logo-png_seeklogo-326706.png" alt="GPA" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/walmart-logo-png_seeklogo-151324.png" alt="Walmart Brasil" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/globo-logo-png_seeklogo-398350.png" alt="Globo" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/gnt-logo-png_seeklogo-526574.png" alt="GNT" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/google-2015-new-logo-png_seeklogo-268024.png" alt="Google" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/meta-new-facebook-2021-logo-png_seeklogo-423961.png" alt="META" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/netflix-logo-png_seeklogo-327627.png" alt="Netflix" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/bradesco-logo-png_seeklogo-342580.png" alt="Bradesco" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/ambev-logo-png_seeklogo-204550.png" alt="AMBEV" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/mercado-livre-logo-png_seeklogo-438731.png" alt="Mercado Livre" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/mercadopago-nuevo-logo-png_seeklogo-397917.png" alt="Mercado Pago" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/doritos-logo-png_seeklogo-286426.png" alt="Doritos" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/pepsico-logo-png_seeklogo-107545.png" alt="PepsiCo" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/seda-logo-png_seeklogo-124381.png" alt="SEDA" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/bndes-logo-png_seeklogo-203368.png" alt="BNDES" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/assai-atacadista-logo-png_seeklogo-523269.png" alt="Assaí" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/nivea-logo-png_seeklogo-99840.png" alt="NIVEA" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/coca-cola-logo-png_seeklogo-32862.png" alt="Coca-Cola" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/magalu-logo-png_seeklogo-452237.png" alt="Magalu" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/avon-logo-png_seeklogo-14546.png" alt="AVON" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/colgate-logo-png_seeklogo-33319.png" alt="Colgate" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/sadia-logo-png_seeklogo-121314.png" alt="Sadia" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/salon-line-logo-png_seeklogo-522880.png" alt="Salon Line" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/itau-logo-png_seeklogo-74120.png" alt="Itaú" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/converse-logo-png_seeklogo-35057.png" alt="Converse" loading="lazy"></span>
+        <span class="client-name"><img src="clientes/companhia-das-letras-logo-png_seeklogo-231234.png" alt="Companhia das Letras" loading="lazy"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="section section--dark testimonial">
+    <div class="container">
+      <div class="testimonial-copy">
+        <span class="quote-mark"><img src="logo_amarelo.svg" alt="Logo"></span>
+        <div class="testimonial-slide is-active">
+          <blockquote>Nos encontramos em projetos distintos ao longo desses anos. Primeiro ao lado de Ana Paula Xongani, depois na Feira Preta, para projetos e entregas grandiosos e uma sensibilidade aguçada necessária para abordar uma marca como Bradesco, onde atuei por 11 anos. Mari sempre trouxe para as mesas onde sentava uma inteligência sensível, estratégica e profundamente conectada às urgências do nosso tempo.</blockquote>
+          <p class="person"><strong>Nay Ruiz</strong><span>Sócia AQI</span></p>
+        </div>
+        <div class="testimonial-slide">
+          <blockquote>Trabalhar com a Mariana é ter ao lado uma mente estratégica profundamente conectada com a sociedade, cultura e impacto. Atuamos juntas no varejo, em contextos de alta complexidade, incluindo a gestão de crises de reputação. Mariana integrou o time com muita clareza e consistência — especialmente no que diz respeito a direcionamento e alinhamento de mensagens. Sua capacidade de leitura de cenário e de articulação entre estratégia, conteúdo e operação fez toda a diferença para que atravessássemos diferentes momentos da empresa com responsabilidade e assertividade.</blockquote>
+          <p class="person"><strong>Cristina Cassis</strong><span>Global Corporate Communications GreenLight Biosciences</span></p>
+        </div>
+        <div class="testimonial-slide">
+          <blockquote>Profissional comprometida, proativa e criativa, possuio um amplo repertório cultural e de questões ESG. Uma profissional necessária a todas as empresas ou instituições.</blockquote>
+          <p class="person"><strong>Jussara Leal</strong><span>Diretora executiva GBR Comunicação</span></p>
+        </div>
+        <div class="testimonial-controls" aria-label="Controles dos testemunhos">
+          <button class="testimonial-arrow testimonial-prev" type="button" aria-label="Testemunho anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+          <button class="testimonial-arrow testimonial-next" type="button" aria-label="Próximo testemunho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <div class="testimonial-dots" role="tablist" aria-label="Selecionar testemunho">
+            <button class="testimonial-dot is-active" type="button" role="tab" aria-label="Testemunho 1" aria-selected="true" data-slide-to="0"></button>
+            <button class="testimonial-dot" type="button" role="tab" aria-label="Testemunho 2" aria-selected="false" data-slide-to="1"></button>
+            <button class="testimonial-dot" type="button" role="tab" aria-label="Testemunho 3" aria-selected="false" data-slide-to="2"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section-head">
+        <svg class="spark" viewBox="0 0 267 197" fill="none" aria-hidden="true">
+          <g stroke="#F43C00" stroke-width="4">
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(142 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(59 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(101 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(174 133 98)"/>
+            <line x1="66" y1="132" x2="199" y2="66" transform="rotate(-157 133 98)"/>
+          </g>
+        </svg>
+        <h2>Textos e<br>Artigos</h2>
+      </div>
+
+      <div class="blog-list">
+        <a class="blog-row" href="#" aria-label="Read: Helped the front-end team to define the technical process and strategy — 22 Jun, 2022">
+          <span class="thumb"><img src="https://picsum.photos/id/60/400/300" alt="" loading="lazy"></span>
+          <h3>Helped the front-end team to define the technical process and strategy</h3>
+          <span class="date">22 Jun, 2022</span>
+          <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="blog-row" href="#" aria-label="Read: Helped the front-end team to define the technical process and strategy — 22 Jun, 2022">
+          <span class="thumb"><img src="https://picsum.photos/id/48/400/300" alt="" loading="lazy"></span>
+          <h3>Helped the front-end team to define the technical process and strategy</h3>
+          <span class="date">22 Jun, 2022</span>
+          <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="blog-row" href="#" aria-label="Read: Helped the front-end team to define the technical process and strategy — 22 Jun, 2022">
+          <span class="thumb"><img src="https://picsum.photos/id/96/400/300" alt="" loading="lazy"></span>
+          <h3>Helped the front-end team to define the technical process and strategy</h3>
+          <span class="date">22 Jun, 2022</span>
+          <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Entre em Contato</span><em>/</em><span>Entre em Contato</span><em>/</em><span>Entre em Contato</span><em>/</em>
+          <span>Entre em Contato</span><em>/</em><span>Entre em Contato</span><em>/</em><span>Entre em Contato</span><em>/</em>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a href="tel:+10345445337876">+10 3454 4533 7876</a>
+        <a href="mailto:hello@onioxagency.com">hello@onioxagency.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <span class="logo"><img src="logo_amarelo.svg" alt="Mari Lemos"></span>
+        <p>Mariana Lemos</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Sobre</a></li>
+          <li><a href="#services">Meus Serviços</a></li>
+          <li><a href="#work">Trabalhos</a></li>
+          <li><a href="#">Termos de Serviço</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Siga</h4>
+        <ul>
+          <li><a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a></li>
+          <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://dribbble.com" target="_blank" rel="noopener">Dribble</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#services">UI Design</a></li>
+          <li><a href="#services">Loren Ipsun</a></li>
+          <li><a href="#services">Development</a></li>
+          <li><a href="#services">Strategy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Mari Lemos<span id="year"></span>. Direitos Reservados.</span>
+      <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project preview">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+  </button>
+  <div class="lightbox-inner">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-info">
+      <h3 id="lightboxTitle"></h3>
+      <p id="lightboxTag"></p>
+      <p id="lightboxDescription"></p>
+      <a class="pill-btn" href="#contact" id="lightboxCta">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        Vamos conversar?
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script>
+(function(){
+  if(window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var entranceElements = document.querySelectorAll(
+      '.site-header, .hero-copy > *, .hero-visual, main > section > .container > *, .section-head > *, '
+      + '.service-row, .work-card, .logo-grid .logo-item, .client-grid .client-name, '
+      + '.testimonial-copy > *, .blog-row, .contact-grid > *, .site-footer > .container > *'
+    );
+    gsap.set(entranceElements,{y:32,autoAlpha:0});
+    var entranceObserver = new IntersectionObserver(function(entries, observer){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        gsap.to(entry.target,{y:0,autoAlpha:1,duration:.8,ease:'power2.out',clearProps:'transform,opacity,visibility'});
+        observer.unobserve(entry.target);
+      });
+    }, {rootMargin:'0px 0px -8% 0px',threshold:.08});
+    entranceElements.forEach(function(element){ entranceObserver.observe(element); });
+  }
+
+  var header = document.getElementById('siteHeader');
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('mobileMenu');
+  var backToTop = document.getElementById('backToTop');
+  var yearEl = document.getElementById('year');
+  yearEl.textContent = new Date().getFullYear();
+  document.querySelectorAll('.client-grid img').forEach(function(logo){
+    logo.src = logo.src.replace('/clientes/', '/clientes/ajustados/');
+  });
+
+  function onScroll(){
+    if(window.scrollY > 40){ header.classList.add('is-scrolled'); }
+    else{ header.classList.remove('is-scrolled'); }
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  function closeMenu(){
+    menu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','Open menu');
+    document.body.style.overflow = '';
+  }
+  function openMenu(){
+    menu.classList.add('is-open');
+    toggle.setAttribute('aria-expanded','true');
+    toggle.setAttribute('aria-label','Close menu');
+    document.body.style.overflow = 'hidden';
+  }
+  toggle.addEventListener('click', function(){
+    var isOpen = menu.classList.contains('is-open');
+    isOpen ? closeMenu() : openMenu();
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+
+  backToTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* active nav link highlighting */
+  var sections = ['home','services','work','awwards','blog','contact']
+    .map(function(id){ return document.getElementById(id); })
+    .filter(Boolean);
+  var navAnchors = document.querySelectorAll('.nav-links a');
+  var linkById = {};
+  navAnchors.forEach(function(a){
+    var id = a.getAttribute('href').replace('#','');
+    linkById[id] = a;
+  });
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var id = entry.target.id;
+      var link = linkById[id];
+      if(!link) return;
+      if(entry.isIntersecting){
+        navAnchors.forEach(function(a){ a.classList.remove('is-active'); });
+        link.classList.add('is-active');
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+  sections.forEach(function(s){ observer.observe(s); });
+
+  /* lightbox */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxTitle = document.getElementById('lightboxTitle');
+  var lightboxTag = document.getElementById('lightboxTag');
+  var lightboxDescription = document.getElementById('lightboxDescription');
+  var lightboxClose = document.getElementById('lightboxClose');
+  var lastFocused = null;
+
+  function openLightbox(card){
+    lastFocused = document.activeElement;
+    lightboxImg.src = card.getAttribute('data-img');
+    lightboxImg.alt = card.getAttribute('data-title') + ' — full project view';
+    lightboxTitle.textContent = card.getAttribute('data-title');
+    lightboxTag.textContent = card.getAttribute('data-tag');
+    lightboxDescription.textContent = card.getAttribute('data-description');
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if(lastFocused){ lastFocused.focus(); }
+  }
+  document.querySelectorAll('.work-card').forEach(function(card){
+    card.addEventListener('click', function(){ openLightbox(card); });
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){
+    if(e.target === lightbox){ closeLightbox(); }
+  });
+
+  /* testimonial carousel */
+  var testimonialSlides = document.querySelectorAll('.testimonial-slide');
+  var testimonialDots = document.querySelectorAll('.testimonial-dot');
+  var testimonialLogo = document.querySelector('.quote-mark img');
+  var testimonialLogos = ['logo_amarelo.svg','logo.svg','logo_azul.svg'];
+  var testimonialIndex = 0;
+  var testimonialTimer;
+  function showTestimonial(index){
+    testimonialIndex = (index + testimonialSlides.length) % testimonialSlides.length;
+    testimonialSlides.forEach(function(slide, i){ slide.classList.toggle('is-active', i === testimonialIndex); });
+    testimonialDots.forEach(function(dot, i){
+      dot.classList.toggle('is-active', i === testimonialIndex);
+      dot.setAttribute('aria-selected', i === testimonialIndex ? 'true' : 'false');
+    });
+    testimonialLogo.src = testimonialLogos[testimonialIndex];
+  }
+  function restartTestimonialTimer(){
+    clearInterval(testimonialTimer);
+    testimonialTimer = setInterval(function(){ showTestimonial(testimonialIndex + 1); }, 7000);
+  }
+  document.querySelector('.testimonial-prev').addEventListener('click', function(){ showTestimonial(testimonialIndex - 1); restartTestimonialTimer(); });
+  document.querySelector('.testimonial-next').addEventListener('click', function(){ showTestimonial(testimonialIndex + 1); restartTestimonialTimer(); });
+  testimonialDots.forEach(function(dot){ dot.addEventListener('click', function(){ showTestimonial(Number(dot.dataset.slideTo)); restartTestimonialTimer(); }); });
+  showTestimonial(0);
+  restartTestimonialTimer();
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(lightbox.classList.contains('is-open')) closeLightbox();
+      if(menu.classList.contains('is-open')) closeMenu();
+    }
+  });
+})();
+</script>
+</body>
+</html>
